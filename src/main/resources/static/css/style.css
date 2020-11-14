@@ -1,0 +1,25 @@
+body {
+    box-sizing: border-box;
+    background-color: #e2e2e2;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box{
+    width: 25%;
+}
+
+.box table td{
+    padding: 10px;
+}

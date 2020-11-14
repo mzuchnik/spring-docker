@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Animals</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <form th:action="@{/logout}">
+            <input type="submit" value="Wyloguj">
+        </form>
+        <h4>Witaj: <span th:text="${user.getUsername()}"></span></h4>
+        <b>Twoja lista zwierząt:</b>
+        <table border="1">
+            <tr>
+                <td>Nazwa:</td>
+                <td>Wiek:</td>
+                <td>Czy dzikie:</td>
+                <td>Akcja:</td>
+                <td>Edytuj:</td>
+            </tr>
+            <tr th:each="animal : ${animals}">
+                <td th:text="${animal.getName()}"></td>
+                <td th:text="${animal.getAge()}"></td>
+                <td th:text="${animal.getIsWild()}"></td>
+                <td>
+                    <form th:action="@{/animals/{id}(id = *{animal.getId()})}" th:method="delete">
+                        <input type="submit" value="Usuń">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/animals/{id}/edit(id = *{animal.id})}">
+                        <input type="submit" value="Edytuj">
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <button id="add-new-animal">Dodaj nowe zwierze</button>
+        <div id="new-animal-form" class="hidden">
+            <h2>Dodaj nowe zwierze: </h2>
+            <form method="post" th:object="${newAnimal}" th:action="@{/animals}">
+                <label>Imie: </label><input type="text" th:field="*{name}"><br>
+                <label>Wiek: </label><input type="number" th:field="*{age}"><br>
+                <label>Czy dzikie zwierze ?: </label><input type="checkbox" th:field="*{isWild}"><br>
+                <input type="submit" value="Dodaj">
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

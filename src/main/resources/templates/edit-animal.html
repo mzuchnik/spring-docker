@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Animal</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <b>Edit Animal</b>
+        <div th:object="${animal}">
+            <form id="form1" th:action="@{/animals/{id}/edit(id = *{id})}" method="post"></form>
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" th:field="*{name}" form="form1"></td>
+                </tr>
+                <tr>
+                    <td>Age:</td>
+                    <td><input type="number" th:field="*{age}" form="form1"></td>
+                </tr>
+                <tr>
+                    <td>Is Wild?:</td>
+                    <td><input type="checkbox" th:field="*{isWild}" form="form1"></td>
+                </tr>
+            </table>
+            <input type="number" th:field="*{id}" class="hidden" form="form1">
+            <input type="submit" value="Zapisz" form="form1">
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  mateusz-zuchnik-spring-app:
+    build: .
+    #image: myapp
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      bridgezadanie1:
+        ipv4_address: 10.0.10.2
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://Full2020-86454:3306/MyAppDb?serverTimezone=UTC
+    depends_on:
+      - Full2020-86454
+
+  Full2020-86454:
+    image: mysql:8
+    networks:
+      bridgezadanie1:
+        ipv4_address: 10.0.10.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=MyAppDb
+      - MYSQL_USER=mzuchnik
+      - MYSQL_PASSWORD=mzuchnik
+    ports:
+    - 3306:3306
+
+networks:
+  bridgezadanie1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.10.0/24
