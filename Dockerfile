@@ -1,14 +1,8 @@
 FROM openjdk:14 as builder
 WORKDIR application
-COPY ./pom.xml ./pom.xml
-COPY mvnw .
-COPY .mvn .mvn
-COPY ./src ./src
-RUN ["chmod", "+x", "mvnw"]
-RUN ./mvnw dependency:go-offline -B
-RUN ./mvnw clean package && cp target/*.jar app.jar
-RUN java -Djarmode=layertools -jar app.jar extract
-#ENTRYPOINT ["java","-jar", "app.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM openjdk:14
 WORKDIR application
