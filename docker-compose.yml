@@ -1,8 +1,7 @@
 version: "3.7"
 services:
   mateusz-zuchnik-spring-app:
-    build: .
-    #image: myapp
+    build: mzuchnik/spring-app-fullstack-project
     restart: on-failure
     ports:
       - 8080:8080
